@@ -39,3 +39,10 @@ next-env.d.ts
 # local tools
 .claude/
 .playwright-mcp/
+
+# source data files
+*.xlsx
+*.pptx
+*.pdf
+*.py
+.agent/

@@ -204,7 +204,7 @@ export default function DashboardPage() {
                 Coherent Dashboard
               </h1>
               <h2 className="text-sm text-black">
-                {dashboardName || 'Global Normothermic Machine Perfusion Market'}
+                {dashboardName || 'U.S. Healthcare Organizations Relocation Market'}
               </h2>
             </div>
           </div>
@@ -372,6 +372,18 @@ export default function DashboardPage() {
                             }`}
                           >
                             🫧 Bubble Chart
+                          </button>
+                        )}
+                        {isChartVisible('competitive-intelligence') && (
+                          <button
+                            onClick={() => setActiveTab('competitive-intelligence')}
+                            className={`px-6 py-3 text-sm font-medium border-b-2 transition-colors ${
+                              activeTab === 'competitive-intelligence'
+                                ? 'border-blue-500 text-blue-600'
+                                : 'border-transparent text-black hover:text-black hover:border-gray-300'
+                            }`}
+                          >
+                            🏢 Competitive Intelligence
                           </button>
                         )}
                         {isChartVisible('customer-intelligence') && (

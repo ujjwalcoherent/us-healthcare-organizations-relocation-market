@@ -193,122 +193,122 @@ export async function loadCompetitiveIntelligenceData(): Promise<CompetitiveInte
   }
 }
 
-// Top pharmaceutical companies in head and neck cancer drugs market
+// Top healthcare organizations relocation companies in U.S. market
 const companies = [
-  'Gaudron Bedstar',
-  'Kandeltam',
-  'Hebei Xing Chemical',
-  'Hubei Jingchan Chutkan',
-  'Vishno Barium (V.C.)',
-  'Jiaxinxi Anheng Jianghua',
-  'Nippon Chemical Industrial',
-  'Sakai Chemical Industry',
+  'Stericycle (MedSolutions)',
+  'UniGroup (United Van Lines Healthcare)',
+  'PODS Healthcare Division',
+  'Medxcel Facilities Management',
+  'JLL Healthcare',
+  'CBRE Healthcare',
+  'Sodexo Healthcare',
+  'ABM Healthcare',
   'Others'
 ]
 
 // Company colors using the enterprise palette
 const companyColors: Record<string, string> = {
-  'Gaudron Bedstar': '#52B69A',      // Teal
-  'Kandeltam': '#34A0A4',             // Medium Teal
-  'Hebei Xing Chemical': '#D9ED92',   // Yellow Green
-  'Hubei Jingchan Chutkan': '#184E77', // Navy Blue
-  'Vishno Barium (V.C.)': '#B5E48C',  // Light Lime
-  'Jiaxinxi Anheng Jianghua': '#1E6091', // Deep Blue
-  'Nippon Chemical Industrial': '#168AAD', // Deep Teal
-  'Sakai Chemical Industry': '#1A759F', // Blue Teal
-  'Others': '#99D98C'                 // Medium Green
+  'Stericycle (MedSolutions)': '#52B69A',
+  'UniGroup (United Van Lines Healthcare)': '#34A0A4',
+  'PODS Healthcare Division': '#D9ED92',
+  'Medxcel Facilities Management': '#184E77',
+  'JLL Healthcare': '#B5E48C',
+  'CBRE Healthcare': '#1E6091',
+  'Sodexo Healthcare': '#168AAD',
+  'ABM Healthcare': '#1A759F',
+  'Others': '#99D98C'
 }
 
 // Headquarters locations
 const headquarters: Record<string, string> = {
-  'Gaudron Bedstar': 'New York, USA',
-  'Kandeltam': 'London, UK',
-  'Hebei Xing Chemical': 'Hebei, China',
-  'Hubei Jingchan Chutkan': 'Hubei, China',
-  'Vishno Barium (V.C.)': 'Mumbai, India',
-  'Jiaxinxi Anheng Jianghua': 'Jiangsu, China',
-  'Nippon Chemical Industrial': 'Tokyo, Japan',
-  'Sakai Chemical Industry': 'Osaka, Japan',
+  'Stericycle (MedSolutions)': 'Bannockburn, IL, USA',
+  'UniGroup (United Van Lines Healthcare)': 'Fenton, MO, USA',
+  'PODS Healthcare Division': 'Clearwater, FL, USA',
+  'Medxcel Facilities Management': 'Indianapolis, IN, USA',
+  'JLL Healthcare': 'Chicago, IL, USA',
+  'CBRE Healthcare': 'Dallas, TX, USA',
+  'Sodexo Healthcare': 'Gaithersburg, MD, USA',
+  'ABM Healthcare': 'New York, NY, USA',
   'Others': 'Various'
 }
 
-// CEOs (simulated names)
+// CEOs
 const ceos: Record<string, string> = {
-  'Gaudron Bedstar': 'Michael Anderson',
-  'Kandeltam': 'Sarah Williams',
-  'Hebei Xing Chemical': 'Zhang Wei',
-  'Hubei Jingchan Chutkan': 'Li Ming',
-  'Vishno Barium (V.C.)': 'Rajesh Kumar',
-  'Jiaxinxi Anheng Jianghua': 'Wang Xiaoping',
-  'Nippon Chemical Industrial': 'Takeshi Yamamoto',
-  'Sakai Chemical Industry': 'Hiroshi Tanaka',
+  'Stericycle (MedSolutions)': 'Cindy J. Miller',
+  'UniGroup (United Van Lines Healthcare)': 'Marc Rogers',
+  'PODS Healthcare Division': 'William Strickland',
+  'Medxcel Facilities Management': 'Mike Wilson',
+  'JLL Healthcare': 'Christian Ulbrich',
+  'CBRE Healthcare': 'Bob Sulentic',
+  'Sodexo Healthcare': 'Sophie Bellon',
+  'ABM Healthcare': 'Scott Salmirs',
   'Others': 'Multiple'
 }
 
 // Year established
 const yearEstablished: Record<string, number> = {
-  'Gaudron Bedstar': 1985,
-  'Kandeltam': 1992,
-  'Hebei Xing Chemical': 2001,
-  'Hubei Jingchan Chutkan': 1998,
-  'Vishno Barium (V.C.)': 1987,
-  'Jiaxinxi Anheng Jianghua': 2003,
-  'Nippon Chemical Industrial': 1978,
-  'Sakai Chemical Industry': 1982,
+  'Stericycle (MedSolutions)': 1989,
+  'UniGroup (United Van Lines Healthcare)': 1928,
+  'PODS Healthcare Division': 1998,
+  'Medxcel Facilities Management': 2014,
+  'JLL Healthcare': 1783,
+  'CBRE Healthcare': 1906,
+  'Sodexo Healthcare': 1966,
+  'ABM Healthcare': 1909,
   'Others': 0
 }
 
 // Product portfolios
 const portfolios: Record<string, string> = {
-  'Gaudron Bedstar': 'Immunotherapy, Targeted Therapy',
-  'Kandeltam': 'Chemotherapy, Clinical Trials',
-  'Hebei Xing Chemical': 'Generic Drugs, APIs',
-  'Hubei Jingchan Chutkan': 'Traditional Medicine, Oncology',
-  'Vishno Barium (V.C.)': 'Biosimilars, Generics',
-  'Jiaxinxi Anheng Jianghua': 'APIs, Intermediates',
-  'Nippon Chemical Industrial': 'Innovative Drugs, Biologics',
-  'Sakai Chemical Industry': 'Specialty Chemicals, Oncology',
-  'Others': 'Various Products'
+  'Stericycle (MedSolutions)': 'Medical Equipment Moving, Compliance Relocation, Biomedical Transport',
+  'UniGroup (United Van Lines Healthcare)': 'Full-service Hospital Moves, Lab Relocation, IT Migration',
+  'PODS Healthcare Division': 'Modular Storage, Phased Relocation, Temporary Facilities',
+  'Medxcel Facilities Management': 'Facility Management, Renovation Coordination, Equipment Install',
+  'JLL Healthcare': 'Strategic Planning, Project Management, Space Optimization',
+  'CBRE Healthcare': 'Real Estate Advisory, Move Management, Facility Transition',
+  'Sodexo Healthcare': 'Integrated Facilities, Equipment Logistics, Staff Transition',
+  'ABM Healthcare': 'Facility Services, Technical Solutions, Infrastructure Support',
+  'Others': 'Various Healthcare Relocation Services'
 }
 
 // Regional strengths
 const regionalStrengths: Record<string, string> = {
-  'Gaudron Bedstar': 'North America, Europe',
-  'Kandeltam': 'Europe, Asia Pacific',
-  'Hebei Xing Chemical': 'China, Southeast Asia',
-  'Hubei Jingchan Chutkan': 'China, Latin America',
-  'Vishno Barium (V.C.)': 'India, Middle East',
-  'Jiaxinxi Anheng Jianghua': 'China, Africa',
-  'Nippon Chemical Industrial': 'Japan, North America',
-  'Sakai Chemical Industry': 'Japan, Europe',
-  'Others': 'Global'
+  'Stericycle (MedSolutions)': 'Midwest, Northeast',
+  'UniGroup (United Van Lines Healthcare)': 'Nationwide U.S.',
+  'PODS Healthcare Division': 'Southeast, West',
+  'Medxcel Facilities Management': 'Midwest, Southeast',
+  'JLL Healthcare': 'Northeast, West',
+  'CBRE Healthcare': 'Southwest, West',
+  'Sodexo Healthcare': 'Northeast, Southeast',
+  'ABM Healthcare': 'Nationwide U.S.',
+  'Others': 'U.S. Regional'
 }
 
 // Market share percentages (must sum to 100)
 const marketShares: Record<string, number> = {
-  'Gaudron Bedstar': 25.0,
-  'Kandeltam': 8.0,
-  'Hebei Xing Chemical': 42.0,
-  'Hubei Jingchan Chutkan': 3.0,
-  'Vishno Barium (V.C.)': 5.0,
-  'Jiaxinxi Anheng Jianghua': 4.0,
-  'Nippon Chemical Industrial': 2.0,
-  'Sakai Chemical Industry': 1.0,
-  'Others': 10.0
+  'Stericycle (MedSolutions)': 18.0,
+  'UniGroup (United Van Lines Healthcare)': 15.0,
+  'PODS Healthcare Division': 12.0,
+  'Medxcel Facilities Management': 11.0,
+  'JLL Healthcare': 10.0,
+  'CBRE Healthcare': 9.0,
+  'Sodexo Healthcare': 7.0,
+  'ABM Healthcare': 5.0,
+  'Others': 13.0
 }
 
 // Generate strategies based on company type
 function generateStrategies(company: string): string[] {
   const strategyMap: Record<string, string[]> = {
-    'Gaudron Bedstar': ['Innovation Focus', 'M&A Strategy', 'Digital Health'],
-    'Kandeltam': ['Clinical Excellence', 'Partnership Model', 'EU Expansion'],
-    'Hebei Xing Chemical': ['Cost Leadership', 'Volume Growth', 'API Integration'],
-    'Hubei Jingchan Chutkan': ['Traditional Integration', 'Local Markets', 'R&D Investment'],
-    'Vishno Barium (V.C.)': ['Biosimilar Development', 'Emerging Markets', 'Affordability'],
-    'Jiaxinxi Anheng Jianghua': ['Supply Chain', 'Manufacturing Scale', 'Export Focus'],
-    'Nippon Chemical Industrial': ['Technology Innovation', 'Quality Excellence', 'Global Partnerships'],
-    'Sakai Chemical Industry': ['Niche Markets', 'Specialty Focus', 'Research Collaboration'],
-    'Others': ['Diverse Strategies', 'Regional Focus', 'Market Specific']
+    'Stericycle (MedSolutions)': ['Compliance-first Approach', 'Biomedical Specialization', 'Regulatory Expertise'],
+    'UniGroup (United Van Lines Healthcare)': ['Full-service Model', 'National Coverage', 'Healthcare Vertical Expansion'],
+    'PODS Healthcare Division': ['Modular Solutions', 'Cost Optimization', 'Phased Move Approach'],
+    'Medxcel Facilities Management': ['Facility Integration', 'Post-move Support', 'Catholic Health Partnership'],
+    'JLL Healthcare': ['Strategic Advisory', 'Technology-driven Planning', 'Portfolio Optimization'],
+    'CBRE Healthcare': ['Real Estate Integration', 'Data Analytics', 'End-to-end Project Management'],
+    'Sodexo Healthcare': ['Integrated Services', 'Staff Transition Support', 'Quality of Life Focus'],
+    'ABM Healthcare': ['Technical Expertise', 'Infrastructure Focus', 'Scalable Solutions'],
+    'Others': ['Regional Specialization', 'Niche Services', 'Local Market Focus']
   }
   
   return strategyMap[company] || ['Market Development', 'Product Innovation', 'Strategic Partnerships']
@@ -317,50 +317,50 @@ function generateStrategies(company: string): string[] {
 // Generate propositions based on company type
 function generatePropositions(company: string): Proposition[] {
   const propositionMap: Record<string, Proposition[]> = {
-    'Gaudron Bedstar': [
-      { title: 'Advanced Immunotherapy Solutions', description: 'Leading-edge CAR-T cell therapy with 95% success rate in clinical trials', category: 'Product Innovation' },
-      { title: 'Personalized Treatment Plans', description: 'Customized treatment protocols based on genetic profiling', category: 'Service Excellence' },
-      { title: 'Global Clinical Network', description: 'Access to 200+ clinical trial sites worldwide', category: 'Market Reach' }
+    'Stericycle (MedSolutions)': [
+      { title: 'Compliance-first Relocation', description: 'FDA and OSHA compliant medical equipment transport with chain-of-custody documentation', category: 'Regulatory Excellence' },
+      { title: 'Biomedical Equipment Expertise', description: 'Specialized handling of MRI, CT, and imaging equipment with certified technicians', category: 'Technical Capability' },
+      { title: 'Zero-downtime Move Planning', description: 'Phased relocation ensuring continuous patient care during facility transitions', category: 'Service Excellence' }
     ],
-    'Kandeltam': [
-      { title: 'Cost-Effective Chemotherapy', description: 'Generic alternatives at 40% lower cost than branded drugs', category: 'Price Advantage' },
-      { title: 'Regulatory Compliance', description: 'Full EU MDR and FDA compliance with fast-track approval', category: 'Regulatory' },
-      { title: 'Partnership Programs', description: 'Strategic alliances with 50+ European hospitals', category: 'Strategic Alliances' }
+    'UniGroup (United Van Lines Healthcare)': [
+      { title: 'Nationwide Hospital Moves', description: 'Full-service hospital relocations covering 48 states with dedicated healthcare crews', category: 'National Coverage' },
+      { title: 'IT Infrastructure Migration', description: 'Secure EHR and medical data migration with HIPAA-compliant protocols', category: 'Technology' },
+      { title: 'Lab Relocation Services', description: 'Specialized lab equipment packing, transport, and recalibration services', category: 'Specialty Services' }
     ],
-    'Hebei Xing Chemical': [
-      { title: 'Bulk API Manufacturing', description: 'World\'s largest API production capacity with 24/7 operations', category: 'Manufacturing Scale' },
-      { title: 'Supply Chain Integration', description: 'End-to-end supply chain from raw materials to finished products', category: 'Supply Chain' },
-      { title: 'Quality Assurance', description: 'ISO 9001 and cGMP certified with 99.8% quality rating', category: 'Quality Standards' }
+    'PODS Healthcare Division': [
+      { title: 'Modular Storage Solutions', description: 'On-site portable storage enabling phased moves with minimal disruption', category: 'Flexibility' },
+      { title: 'Cost-effective Relocation', description: '30% cost savings vs traditional moves through modular approach', category: 'Cost Advantage' },
+      { title: 'Temporary Facility Support', description: 'Interim storage and staging during renovation projects', category: 'Renovation Support' }
     ],
-    'Hubei Jingchan Chutkan': [
-      { title: 'Traditional Medicine Integration', description: 'Combining ancient Chinese medicine with modern oncology treatments', category: 'Cultural Approach' },
-      { title: 'Local Market Expertise', description: 'Deep understanding of Asian and Latin American healthcare systems', category: 'Market Knowledge' },
-      { title: 'R&D Investment', description: 'Annual R&D investment of $50M in traditional medicine research', category: 'Research & Development' }
+    'Medxcel Facilities Management': [
+      { title: 'Integrated Facility Transition', description: 'End-to-end facility management from planning through post-move commissioning', category: 'Full Service' },
+      { title: 'Catholic Health Network', description: 'Preferred partner for 160+ Catholic healthcare facilities nationwide', category: 'Network Strength' },
+      { title: 'Equipment Installation', description: 'Post-move medical equipment installation and validation services', category: 'Technical Services' }
     ],
-    'Vishno Barium (V.C.)': [
-      { title: 'Biosimilar Development', description: 'First-to-market biosimilars at 60% cost reduction', category: 'Biosimilars' },
-      { title: 'Emerging Market Focus', description: 'Specialized solutions for price-sensitive emerging markets', category: 'Market Strategy' },
-      { title: 'Affordable Healthcare', description: 'Making advanced treatments accessible to underserved populations', category: 'Social Impact' }
+    'JLL Healthcare': [
+      { title: 'Strategic Space Planning', description: 'Data-driven healthcare facility planning optimizing patient flow and staff efficiency', category: 'Strategic Advisory' },
+      { title: 'Technology-driven Moves', description: 'Digital twin modeling for move simulation before execution', category: 'Innovation' },
+      { title: 'Portfolio Optimization', description: 'Multi-site healthcare portfolio rationalization and consolidation advisory', category: 'Consulting' }
     ],
-    'Jiaxinxi Anheng Jianghua': [
-      { title: 'Export-Optimized Supply Chain', description: 'Streamlined logistics for global distribution with 48-hour delivery', category: 'Logistics' },
-      { title: 'Manufacturing Excellence', description: 'State-of-the-art facilities with automated production lines', category: 'Manufacturing' },
-      { title: 'Quality Control', description: 'Multi-stage QC process ensuring 100% batch consistency', category: 'Quality Assurance' }
+    'CBRE Healthcare': [
+      { title: 'Real Estate Advisory', description: 'Healthcare-specific real estate strategy including site selection and lease negotiation', category: 'Real Estate' },
+      { title: 'Move Management Platform', description: 'Proprietary project management software for complex multi-phase healthcare moves', category: 'Technology' },
+      { title: 'Sustainability Focus', description: 'Green relocation practices including equipment recycling and energy-efficient setup', category: 'Sustainability' }
     ],
-    'Nippon Chemical Industrial': [
-      { title: 'Technology Innovation', description: 'AI-powered drug discovery platform reducing development time by 40%', category: 'Technology' },
-      { title: 'Quality Excellence', description: 'Zero-defect manufacturing with Six Sigma certification', category: 'Quality Standards' },
-      { title: 'Global Partnerships', description: 'Strategic collaborations with top 10 pharma companies worldwide', category: 'Strategic Partnerships' }
+    'Sodexo Healthcare': [
+      { title: 'Staff Transition Programs', description: 'Comprehensive workforce relocation support including housing and orientation', category: 'Human Capital' },
+      { title: 'Integrated Facility Services', description: 'Combined relocation with ongoing facility management for seamless transitions', category: 'Integrated Services' },
+      { title: 'Patient Experience Focus', description: 'Move planning centered on minimizing patient disruption and maintaining care quality', category: 'Patient Care' }
     ],
-    'Sakai Chemical Industry': [
-      { title: 'Specialty Chemical Solutions', description: 'Custom-formulated specialty chemicals for niche oncology applications', category: 'Specialty Products' },
-      { title: 'Research Collaboration', description: 'Active partnerships with 15 leading research institutions', category: 'Research Partnerships' },
-      { title: 'Niche Market Expertise', description: 'Deep specialization in rare cancer treatments', category: 'Market Specialization' }
+    'ABM Healthcare': [
+      { title: 'Infrastructure Readiness', description: 'Pre-move infrastructure assessment and upgrade services for destination facilities', category: 'Technical Preparation' },
+      { title: 'Scalable Move Teams', description: 'Flexible workforce deployment from 10 to 500+ personnel based on project scope', category: 'Scalability' },
+      { title: 'Post-move Support', description: '90-day post-relocation facility support ensuring operational stability', category: 'Ongoing Support' }
     ],
     'Others': [
-      { title: 'Market-Specific Solutions', description: 'Tailored products and services for regional market needs', category: 'Market Adaptation' },
-      { title: 'Regional Focus', description: 'Strong presence in local markets with cultural understanding', category: 'Local Expertise' },
-      { title: 'Diverse Product Portfolio', description: 'Wide range of products covering multiple therapeutic areas', category: 'Product Diversity' }
+      { title: 'Regional Specialization', description: 'Deep expertise in local healthcare regulations and facility requirements', category: 'Local Expertise' },
+      { title: 'Niche Equipment Handling', description: 'Specialized services for unique medical equipment categories', category: 'Specialty Services' },
+      { title: 'Flexible Engagement Models', description: 'Customizable service packages for smaller healthcare organizations', category: 'Flexibility' }
     ]
   }
   
@@ -373,8 +373,8 @@ function generatePropositions(company: string): Proposition[] {
 
 // Generate revenue based on market share
 function generateRevenue(marketShare: number): { overall: number, segmental: number } {
-  // Total market size approximately 5000 USD Mn
-  const totalMarketSize = 5000
+  // Total market size approximately 1287.5 USD Mn (2025)
+  const totalMarketSize = 1287.5
   const segmentalRevenue = (marketShare / 100) * totalMarketSize
   
   // Overall revenue is typically 3-5x the segmental revenue (company has other products)

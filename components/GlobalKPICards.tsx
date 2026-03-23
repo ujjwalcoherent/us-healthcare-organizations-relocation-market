@@ -152,7 +152,9 @@ export function GlobalKPICards() {
     const geographyLabel = actualSelectedGeographies.length === 0
       ? `Global ${marketName}`
       : actualSelectedGeographies.length === 1
-      ? `${actualSelectedGeographies[0]} ${marketName}`
+      ? marketName.toLowerCase().startsWith(actualSelectedGeographies[0].toLowerCase())
+        ? marketName
+        : `${actualSelectedGeographies[0]} ${marketName}`
       : `${actualSelectedGeographies.length} Geographies ${marketName}`
     const segmentTypeLabel = targetSegmentType || 'All Segments'
 

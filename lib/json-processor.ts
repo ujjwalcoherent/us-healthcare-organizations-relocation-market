@@ -1233,9 +1233,9 @@ export async function processJsonDataAsync(
     }
     const startYear = Math.min(...allYears)
     const forecastYear = Math.max(...allYears)
-    const baseYear = startYear + 5 // Base year = 2026 for 2021-2033 data
-    // Historical/Forecast split: years before base year are historical
-    const historicalEndYear = baseYear - 1 // 2025
+    const baseYear = 2025 // Base year is always 2025
+    // Historical/Forecast split: historical INCLUDES base year
+    const historicalEndYear = baseYear // 2025
     console.log(`Years: ${startYear} to ${forecastYear}, base: ${baseYear}, historical end: ${historicalEndYear}`)
     
     // Extract geographies from segmentation data (first level keys)
@@ -1266,45 +1266,11 @@ export async function processJsonDataAsync(
       throw new Error('No geographies found in any data source. Please check your JSON structure.')
     }
 
-    // Extract regions AND countries from "By Region" segment type as additional geographies
-    // This builds a full geography hierarchy: Global > Regions > Countries
+    // "By Region" is treated as a regular segment type (not geography hierarchy) for this market
+    // Regions appear as selectable segments, not as geography sub-levels
     const regionGeographies: string[] = []
     const regionToCountries: Record<string, string[]> = {}
     const allCountries: string[] = []
-    for (const topGeo of geographies) {
-      const geoData = structureData[topGeo]
-      if (geoData && typeof geoData === 'object') {
-        // Look for "By Region" segment type
-        const byRegionData = geoData['By Region']
-        if (byRegionData && typeof byRegionData === 'object') {
-          // Extract region names (first level keys under "By Region")
-          const regions = Object.keys(byRegionData).filter(key => {
-            const value = byRegionData[key]
-            return value && typeof value === 'object' && !Array.isArray(value)
-          })
-          regions.forEach(region => {
-            if (!regionGeographies.includes(region) && !geographies.includes(region)) {
-              regionGeographies.push(region)
-            }
-            // Extract countries under each region (second level keys, excluding the region name itself)
-            const regionData = byRegionData[region]
-            if (regionData && typeof regionData === 'object') {
-              const countries = Object.keys(regionData).filter(key => {
-                return key !== region && typeof regionData[key] === 'object' && !Array.isArray(regionData[key])
-              })
-              if (countries.length > 0) {
-                regionToCountries[region] = countries
-                countries.forEach(country => {
-                  if (!allCountries.includes(country)) {
-                    allCountries.push(country)
-                  }
-                })
-              }
-            }
-          })
-        }
-      }
-    }
 
     // Add regions and countries to geographies list
     if (regionGeographies.length > 0) {
@@ -1334,8 +1300,12 @@ export async function processJsonDataAsync(
     }
     console.log(`Found ${segmentTypes.size} segment types:`, Array.from(segmentTypes))
 
-    // Remove "By Region" (and similar) from segment types - these are geography dimensions, not segments
-    segmentTypes.delete('By Region')
+    // Remove geography-based segment types ONLY if they produced actual geography records
+    // If regions have no sub-country data, keep them as regular segment types
+    if (regionGeographies.length > 0) {
+      // Only remove if regions were extracted as geographies
+      // segmentTypes.delete('By Region')
+    }
     segmentTypes.delete('By State')
     segmentTypes.delete('By Country')
     console.log(`Segment types after removing geography types:`, Array.from(segmentTypes))
@@ -1395,11 +1365,9 @@ export async function processJsonDataAsync(
       await new Promise(resolve => setImmediate(resolve))
     }
 
-    // Process "By Region" data separately for geography-based records
-    // These records are NOT added to segment types but provide data for region/country geographies
-    const geoSegmentTypes = ['By Region', 'By State', 'By Country']
+    // "By Region" is processed as a regular segment type above, no separate geography processing needed
+    const geoSegmentTypes = ['By State', 'By Country']
     for (const geoSegType of geoSegmentTypes) {
-      // Check if this geo segment type exists in the structure data
       const hasGeoSegType = Object.values(structureData).some(
         (geo: any) => geo && typeof geo === 'object' && geo[geoSegType]
       )
@@ -1472,9 +1440,9 @@ export async function processJsonDataAsync(
     
     // Build metadata
     const metadata: Metadata = {
-      market_name: 'Normothermic Machine Perfusion Market',
+      market_name: 'U.S. Healthcare Organizations Relocation Market',
       market_type: 'Market Analysis',
-      industry: 'Healthcare & Pharmaceuticals',
+      industry: 'Healthcare Services',
       years: allYears,
       start_year: startYear,
       base_year: baseYear,
@@ -1483,7 +1451,7 @@ export async function processJsonDataAsync(
       forecast_years: allYears.filter(y => y > historicalEndYear),
       currency: 'USD',
       value_unit: 'Million',
-      volume_unit: 'Million Units',
+      volume_unit: 'No. of Moves',
       has_value: valueRecords.length > 0,
       has_volume: volumeRecords.length > 0,
     }

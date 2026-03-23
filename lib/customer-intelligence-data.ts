@@ -8,7 +8,7 @@ export interface Customer {
   name: string
   region: string
   endUserSegment: string
-  type: 'residential' | 'commercial' | 'utility'
+  type: 'residential' | 'commercial' | 'utility'  // kept for interface compat
 }
 
 export interface CustomerIntelligenceData {
@@ -18,23 +18,36 @@ export interface CustomerIntelligenceData {
   customers: Customer[]
 }
 
-// Realistic customer name generators by type
-const residentialNames = [
-  'Solar Home', 'Rooftop Solar', 'Green Energy Home', 'SunPower Residential',
-  'HomeGrid Solar', 'Bright Home Energy', 'SolarEdge Home', 'EcoHome Solar',
-  'Smart Home Solar', 'Residential Power'
+// Realistic healthcare facility names by type
+const hospitalNames = [
+  'Memorial Hospital', 'Regional Medical Center', 'General Hospital', 'Community Hospital',
+  'University Hospital', 'Methodist Hospital', 'Baptist Medical Center', 'Presbyterian Hospital',
+  'St. Mary Medical Center', 'Providence Health'
 ]
 
-const commercialNames = [
-  'Industrial Solar Park', 'Commercial Solar Solutions', 'Business Energy Center',
-  'Solar Power Plant', 'Corporate Solar Hub', 'Enterprise Energy', 'Solar Campus',
-  'Factory Solar System'
+const ascNames = [
+  'SurgiCenter', 'Outpatient Surgery Center', 'Ambulatory Care Center', 'Day Surgery Center',
+  'Advanced Surgical Center', 'Premier Surgical Center', 'MedStar ASC', 'CarePoint ASC'
 ]
 
-const utilityNames = [
-  'Grid-Scale Solar Farm', 'Utility Solar Station', 'Power Grid Solar',
-  'Megawatt Solar Park', 'Regional Solar Utility', 'Solar Generation Station',
-  'Grid Solar Complex', 'Utility Power Station'
+const mobNames = [
+  'Medical Office Plaza', 'Healthcare Pavilion', 'Physician Center', 'Medical Arts Building',
+  'Professional Medical Center', 'Health Services Building', 'Medical Tower', 'Clinic Center'
+]
+
+const imagingNames = [
+  'Diagnostic Imaging Center', 'Radiology Associates', 'Advanced Imaging', 'MRI & CT Center',
+  'Digital Imaging Center', 'Medical Imaging Solutions', 'Premier Radiology', 'Imaging Partners'
+]
+
+const specialtyNames = [
+  'Cardiology Associates', 'Orthopedic Specialists', 'Dermatology Center', 'ENT Clinic',
+  'Oncology Center', 'Pain Management Clinic', 'Neurology Associates', 'Pulmonary Care Center'
+]
+
+const rehabNames = [
+  'Rehabilitation Center', 'Physical Therapy Center', 'Recovery Center', 'Wellness & Rehab',
+  'Sports Medicine Rehab', 'Post-Acute Care Center', 'Skilled Nursing Rehab', 'Neuro Rehab Center'
 ]
 
 const locationSuffixes = [
@@ -44,11 +57,11 @@ const locationSuffixes = [
 
 // Region-specific prefixes
 const regionPrefixes: Record<string, string[]> = {
-  'North America': ['American', 'United', 'National', 'Regional', 'Metropolitan'],
-  'Latin America': ['Latino', 'Americas', 'Continental', 'Regional', 'National'],
-  'Europe': ['European', 'Continental', 'Regional', 'National', 'Metropolitan'],
-  'Asia Pacific': ['Asia', 'Pacific', 'Regional', 'National', 'Metropolitan'],
-  'Middle East & Africa': ['Middle East', 'Regional', 'National', 'Gulf', 'African']
+  'Northeast': ['Boston', 'Hartford', 'New York', 'Philadelphia', 'Pittsburgh'],
+  'Southeast': ['Atlanta', 'Charlotte', 'Tampa', 'Miami', 'Nashville'],
+  'Midwest': ['Chicago', 'Cleveland', 'Detroit', 'Minneapolis', 'Columbus'],
+  'West': ['Los Angeles', 'Denver', 'Seattle', 'Portland', 'San Francisco'],
+  'Southwest': ['Dallas', 'Houston', 'Phoenix', 'Austin', 'San Antonio']
 }
 
 function generateCustomerName(region: string, endUserSegment: string, index: number): string {
@@ -57,12 +70,18 @@ function generateCustomerName(region: string, endUserSegment: string, index: num
   const location = locationSuffixes[index % locationSuffixes.length]
 
   let baseName = ''
-  if (endUserSegment === 'Residential') {
-    baseName = residentialNames[index % residentialNames.length]
-  } else if (endUserSegment === 'Commercial and Industrial') {
-    baseName = commercialNames[index % commercialNames.length]
+  if (endUserSegment === 'Hospitals') {
+    baseName = hospitalNames[index % hospitalNames.length]
+  } else if (endUserSegment === 'ASCs') {
+    baseName = ascNames[index % ascNames.length]
+  } else if (endUserSegment === 'MOBs') {
+    baseName = mobNames[index % mobNames.length]
+  } else if (endUserSegment === 'Imaging Centers') {
+    baseName = imagingNames[index % imagingNames.length]
+  } else if (endUserSegment === 'Specialty Clinics') {
+    baseName = specialtyNames[index % specialtyNames.length]
   } else {
-    baseName = utilityNames[index % utilityNames.length]
+    baseName = rehabNames[index % rehabNames.length]
   }
 
   return `${prefix} ${baseName} ${location}`
@@ -85,18 +104,21 @@ function seededRandom(seed: number): () => number {
 function generateCustomerCount(region: string, endUserSegment: string): number {
   // Base multipliers by region (reflecting market size)
   const regionMultipliers: Record<string, number> = {
-    'North America': 1.2,
-    'Europe': 1.0,
-    'Asia Pacific': 1.3,
-    'Latin America': 0.7,
-    'Middle East & Africa': 0.6
+    'Northeast': 0.9,
+    'Southeast': 1.3,
+    'Midwest': 1.0,
+    'West': 1.2,
+    'Southwest': 0.8
   }
 
   // Base multipliers by end user type
   const segmentMultipliers: Record<string, number> = {
-    'Residential': 1.5,              // Most common
-    'Commercial and Industrial': 1.0, // Medium
-    'Utility-scale': 0.4              // Fewer but larger projects
+    'Hospitals': 0.3,
+    'ASCs': 0.8,
+    'MOBs': 1.5,
+    'Imaging Centers': 0.6,
+    'Specialty Clinics': 1.4,
+    'Rehab Centers': 0.4
   }
 
   // Base count range
@@ -125,17 +147,20 @@ function generateCustomerCount(region: string, endUserSegment: string): number {
  */
 export function generateCustomerIntelligenceData(): CustomerIntelligenceData[] {
   const regions = [
-    'North America',
-    'Latin America',
-    'Europe',
-    'Asia Pacific',
-    'Middle East & Africa'
+    'Northeast',
+    'Southeast',
+    'Midwest',
+    'West',
+    'Southwest'
   ]
 
   const endUserSegments = [
-    'Residential',
-    'Commercial and Industrial',
-    'Utility-scale'
+    'Hospitals',
+    'ASCs',
+    'MOBs',
+    'Imaging Centers',
+    'Specialty Clinics',
+    'Rehab Centers'
   ]
 
   const data: CustomerIntelligenceData[] = []
@@ -152,8 +177,8 @@ export function generateCustomerIntelligenceData(): CustomerIntelligenceData[] {
           name: generateCustomerName(region, endUserSegment, i),
           region,
           endUserSegment,
-          type: endUserSegment === 'Residential' ? 'residential'
-                : endUserSegment === 'Commercial and Industrial' ? 'commercial'
+          type: endUserSegment === 'Hospitals' ? 'residential'
+                : endUserSegment === 'Specialty Clinics' || endUserSegment === 'ASCs' ? 'commercial'
                 : 'utility'
         })
       }

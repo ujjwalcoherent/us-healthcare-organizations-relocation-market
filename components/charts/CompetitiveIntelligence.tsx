@@ -3,268 +3,260 @@
 import { useState } from 'react'
 
 interface OEMData {
-  // OEM Information
-  oemManufacturerName: string
-  hqCountry: string
-  primaryDoorTypeFocus: string
-  automationFocus: string
-  materialFocus: string
+  companyName: string
+  hqLocation: string
+  primaryServiceFocus: string
+  facilityTypeFocus: string
+  technologyCapabilities: string
   keyEndUseFocus: string
-  // Channel & Support
   goToMarketChannels: string
-  serviceAftermarketStrength: string
+  serviceStrength: string
   typicalPositioning: string
-  keyDistributorIntegratorApproach: string
-  // CMI Insights
+  keyPartnerApproach: string
   keyInsights: string
 }
 
 interface DistributorData {
-  // Partner Profile
-  distributorName: string
-  parentGroupHoldingCompany: string
-  hqCountry: string
-  countriesCovered: string
-  keyOEMBrandsCarried: string
+  partnerName: string
+  parentGroup: string
+  hqLocation: string
+  regionsCovered: string
+  keyServicesOffered: string
   channelType: string
-  keyDoorTypesCovered: string
-  automationCapability: string
+  facilityTypesCovered: string
+  complianceCapability: string
   endUseFocus: string
-  // Contact Details
   keyContactPerson: string
   designation: string
   email: string
-  phoneWhatsApp: string
+  phone: string
   linkedIn: string
   website: string
-  // Fit & Opportunity
   competitiveStrengths: string
   gapsWeaknesses: string
 }
 
-// Sample data for Industrial Door OEMs
 const oemData: OEMData[] = [
   {
-    oemManufacturerName: 'Hörmann',
-    hqCountry: 'Germany',
-    primaryDoorTypeFocus: 'Industrial Sectional, High-Speed, Loading Bay',
-    automationFocus: 'Full Automation, Smart Controls',
-    materialFocus: 'Steel, Aluminum, Insulated Panels',
-    keyEndUseFocus: 'Manufacturing, Logistics, Automotive',
-    goToMarketChannels: 'Direct Sales, Authorized Dealers',
-    serviceAftermarketStrength: 'Strong - Pan-India Service Network',
+    companyName: 'Stericycle (MedSolutions)',
+    hqLocation: 'Bannockburn, IL, USA',
+    primaryServiceFocus: 'Full-service Healthcare Relocation, Equipment Logistics',
+    facilityTypeFocus: 'Hospitals, Imaging Centers, Specialty Clinics',
+    technologyCapabilities: 'RFID Asset Tracking, Chain of Custody, Climate-Controlled Transport',
+    keyEndUseFocus: 'Large Hospital Systems, Academic Medical Centers',
+    goToMarketChannels: 'Direct Sales, Strategic Partnerships with GPOs',
+    serviceStrength: 'Strong - Nationwide Coverage, 24/7 Support',
     typicalPositioning: 'Premium',
-    keyDistributorIntegratorApproach: 'Exclusive Distributors, System Integrators',
-    keyInsights: 'Market leader in premium segment, strong brand recall'
+    keyPartnerApproach: 'Exclusive Contracts, Integrated Service Agreements',
+    keyInsights: 'Market leader leveraging waste management network for healthcare logistics'
   },
   {
-    oemManufacturerName: 'ASSA ABLOY (Entrematic)',
-    hqCountry: 'Sweden',
-    primaryDoorTypeFocus: 'High-Speed, Sectional, Dock Equipment',
-    automationFocus: 'Advanced Automation, IoT Integration',
-    materialFocus: 'Steel, PVC, Composite',
-    keyEndUseFocus: 'Logistics, Cold Chain, Food & Beverage',
-    goToMarketChannels: 'Direct Sales, Channel Partners',
-    serviceAftermarketStrength: 'Strong - Global Service Standards',
-    typicalPositioning: 'Premium',
-    keyDistributorIntegratorApproach: 'Regional Distributors, EPC Partners',
-    keyInsights: 'Strong in cold chain, expanding logistics focus'
-  },
-  {
-    oemManufacturerName: 'Gandhi Automations',
-    hqCountry: 'India',
-    primaryDoorTypeFocus: 'High-Speed, Sectional, Rolling Shutters',
-    automationFocus: 'Semi to Full Automation',
-    materialFocus: 'Steel, Aluminum, PVC',
-    keyEndUseFocus: 'Manufacturing, Pharma, Automotive',
-    goToMarketChannels: 'Direct Sales, Dealer Network',
-    serviceAftermarketStrength: 'Strong - Extensive Local Network',
+    companyName: 'UniGroup (United Van Lines Healthcare)',
+    hqLocation: 'Fenton, MO, USA',
+    primaryServiceFocus: 'Full-service Relocation, IT & Data Migration',
+    facilityTypeFocus: 'Hospitals, MOBs, ASCs',
+    technologyCapabilities: 'Project Management Software, Inventory Management Systems',
+    keyEndUseFocus: 'Multi-site Health Systems, VA Hospitals',
+    goToMarketChannels: 'Direct Sales, Agent Network, Government Contracts',
+    serviceStrength: 'Strong - Extensive Agent Network, Government Clearances',
     typicalPositioning: 'Mid to Premium',
-    keyDistributorIntegratorApproach: 'Multi-tier Distribution, Direct Key Accounts',
-    keyInsights: 'Leading Indian player, strong service network'
+    keyPartnerApproach: 'Agent-based Model, GSA Schedule Contracts',
+    keyInsights: 'Strong government healthcare relocation expertise via GSA contracts'
   },
   {
-    oemManufacturerName: 'Dynaco (ASSA ABLOY)',
-    hqCountry: 'Belgium',
-    primaryDoorTypeFocus: 'High-Speed Doors',
-    automationFocus: 'Full Automation, Self-Repair',
-    materialFocus: 'PVC, Fabric',
-    keyEndUseFocus: 'Food, Pharma, Clean Rooms',
-    goToMarketChannels: 'Direct Sales, Specialized Dealers',
-    serviceAftermarketStrength: 'Moderate - Partner Dependent',
-    typicalPositioning: 'Premium',
-    keyDistributorIntegratorApproach: 'Specialized Partners, OEM Tie-ups',
-    keyInsights: 'Niche player in hygienic high-speed doors'
-  },
-  {
-    oemManufacturerName: 'Rytec Corporation',
-    hqCountry: 'USA',
-    primaryDoorTypeFocus: 'High-Speed, Rubber Doors',
-    automationFocus: 'Full Automation, High Cycle',
-    materialFocus: 'Rubber, PVC, Steel',
-    keyEndUseFocus: 'Manufacturing, Automotive, Logistics',
-    goToMarketChannels: 'Direct Sales, Authorized Distributors',
-    serviceAftermarketStrength: 'Moderate - Select Cities',
-    typicalPositioning: 'Premium',
-    keyDistributorIntegratorApproach: 'Technical Distributors, Direct Sales',
-    keyInsights: 'Known for durability and crash-proof design'
-  },
-  {
-    oemManufacturerName: 'Infraca',
-    hqCountry: 'India',
-    primaryDoorTypeFocus: 'Industrial Doors, Dock Equipment',
-    automationFocus: 'Semi to Full Automation',
-    materialFocus: 'Steel, Insulated Panels',
-    keyEndUseFocus: 'Logistics, Cold Chain, Manufacturing',
-    goToMarketChannels: 'Direct Sales, Regional Dealers',
-    serviceAftermarketStrength: 'Growing - Regional Focus',
+    companyName: 'PODS Healthcare Division',
+    hqLocation: 'Clearwater, FL, USA',
+    primaryServiceFocus: 'Equipment-only Relocation, Temporary Storage',
+    facilityTypeFocus: 'ASCs, Specialty Clinics, Rehab Centers',
+    technologyCapabilities: 'Container Tracking, On-demand Scheduling Platform',
+    keyEndUseFocus: 'Small to Mid-size Practices, Renovation Projects',
+    goToMarketChannels: 'Direct Sales, Online Platform, Channel Partners',
+    serviceStrength: 'Moderate - Flexible but Limited Specialized Healthcare',
     typicalPositioning: 'Value to Mid',
-    keyDistributorIntegratorApproach: 'Regional Dealers, Direct Sales',
-    keyInsights: 'Growing player in value segment'
+    keyPartnerApproach: 'Franchise Model, Technology Platform Partnerships',
+    keyInsights: 'Growing healthcare segment leveraging consumer brand strength'
   },
   {
-    oemManufacturerName: 'Kopron',
-    hqCountry: 'Italy',
-    primaryDoorTypeFocus: 'Sectional, Dock Equipment, Loading Systems',
-    automationFocus: 'Full Automation',
-    materialFocus: 'Steel, Aluminum',
-    keyEndUseFocus: 'Logistics, Manufacturing',
-    goToMarketChannels: 'Direct Sales, EPC Partners',
-    serviceAftermarketStrength: 'Moderate - Limited Network',
-    typicalPositioning: 'Mid to Premium',
-    keyDistributorIntegratorApproach: 'EPC Partners, Project Sales',
-    keyInsights: 'Strong in loading bay solutions'
-  },
-  {
-    oemManufacturerName: 'Efaflex',
-    hqCountry: 'Germany',
-    primaryDoorTypeFocus: 'High-Speed Doors',
-    automationFocus: 'Full Automation, Smart Controls',
-    materialFocus: 'Aluminum, PVC, Steel',
-    keyEndUseFocus: 'Automotive, Clean Rooms, Pharma',
-    goToMarketChannels: 'Direct Sales, Technical Partners',
-    serviceAftermarketStrength: 'Strong - Specialized Service',
+    companyName: 'Medxcel Facilities Management',
+    hqLocation: 'Indianapolis, IN, USA',
+    primaryServiceFocus: 'Compliance-led Relocation, Facility Reconfiguration',
+    facilityTypeFocus: 'Hospitals, Imaging Centers',
+    technologyCapabilities: 'BIM Integration, Compliance Management Systems, IoT Monitoring',
+    keyEndUseFocus: 'Catholic Health Systems, Large Hospital Networks',
+    goToMarketChannels: 'Direct Sales, Long-term Service Contracts',
+    serviceStrength: 'Strong - Deep Healthcare Facility Expertise',
     typicalPositioning: 'Premium',
-    keyDistributorIntegratorApproach: 'Technical Partners, OEM Integration',
-    keyInsights: 'Technology leader in high-speed segment'
+    keyPartnerApproach: 'Integrated Facility Management Contracts',
+    keyInsights: 'Ascension Health spin-off with deep hospital operations knowledge'
+  },
+  {
+    companyName: 'JLL Healthcare',
+    hqLocation: 'Chicago, IL, USA',
+    primaryServiceFocus: 'New Facility Relocation, Project Management',
+    facilityTypeFocus: 'Hospitals, MOBs, Imaging Centers',
+    technologyCapabilities: 'Digital Twin Technology, Space Planning Software',
+    keyEndUseFocus: 'Large Health Systems, Real Estate Transactions',
+    goToMarketChannels: 'Direct Sales, Consulting Engagements',
+    serviceStrength: 'Strong - Global Platform, Deep Advisory Capability',
+    typicalPositioning: 'Premium',
+    keyPartnerApproach: 'Advisory-led, Long-term Facility Management',
+    keyInsights: 'Leverages real estate expertise for healthcare facility transitions'
+  },
+  {
+    companyName: 'CBRE Healthcare',
+    hqLocation: 'Dallas, TX, USA',
+    primaryServiceFocus: 'New Facility Relocation, Renovation Planning',
+    facilityTypeFocus: 'MOBs, ASCs, Specialty Clinics',
+    technologyCapabilities: 'Space Utilization Analytics, Project Management Tools',
+    keyEndUseFocus: 'Ambulatory Care Networks, Physician Groups',
+    goToMarketChannels: 'Direct Sales, Advisory Services',
+    serviceStrength: 'Strong - Extensive Real Estate Network',
+    typicalPositioning: 'Mid to Premium',
+    keyPartnerApproach: 'Bundled Real Estate + Relocation Services',
+    keyInsights: 'Strong in outpatient facility relocations tied to real estate deals'
+  },
+  {
+    companyName: 'Sodexo Healthcare',
+    hqLocation: 'Gaithersburg, MD, USA',
+    primaryServiceFocus: 'Internal Reconfiguration, Equipment Relocation',
+    facilityTypeFocus: 'Hospitals, Rehab Centers',
+    technologyCapabilities: 'Workflow Optimization, Asset Management Systems',
+    keyEndUseFocus: 'Integrated Health Systems, Long-term Care',
+    goToMarketChannels: 'Direct Sales, Existing Facility Management Contracts',
+    serviceStrength: 'Moderate - Strong in Operations but Limited Move Specialization',
+    typicalPositioning: 'Mid',
+    keyPartnerApproach: 'Cross-sell from Existing FM Contracts',
+    keyInsights: 'Leverages facility management presence for relocation upsell'
+  },
+  {
+    companyName: 'ABM Healthcare',
+    hqLocation: 'New York, NY, USA',
+    primaryServiceFocus: 'Equipment-only Relocation, Compliance-led Moves',
+    facilityTypeFocus: 'Hospitals, Imaging Centers, ASCs',
+    technologyCapabilities: 'Compliance Tracking, Environmental Monitoring',
+    keyEndUseFocus: 'Regional Hospital Systems, Community Hospitals',
+    goToMarketChannels: 'Direct Sales, Government Contracts',
+    serviceStrength: 'Moderate - Regional Focus, Growing Healthcare Division',
+    typicalPositioning: 'Value to Mid',
+    keyPartnerApproach: 'Integrated Facility Services, Multi-year Contracts',
+    keyInsights: 'Expanding healthcare relocation from facilities services base'
   }
 ]
 
-// Sample data for Distributors
 const distributorData: DistributorData[] = [
   {
-    distributorName: 'Kelley Material Handling India',
-    parentGroupHoldingCompany: '4Front Engineered Solutions',
-    hqCountry: 'USA',
-    countriesCovered: 'India, South Asia',
-    keyOEMBrandsCarried: 'Kelley, Serco, APS Resource',
-    channelType: 'Exclusive Distributor',
-    keyDoorTypesCovered: 'Dock Equipment, Sectional Doors',
-    automationCapability: 'Full Automation',
-    endUseFocus: 'Logistics, E-commerce, Manufacturing',
-    keyContactPerson: 'Vikram Mehta',
-    designation: 'Country Manager',
-    email: 'v.mehta@kelleyindia.com',
-    phoneWhatsApp: '+91 98765 11111',
-    linkedIn: 'linkedin.com/in/vikrammehta',
-    website: 'www.kelleyindia.com',
-    competitiveStrengths: 'Service reach, Fast response, OEM backing',
-    gapsWeaknesses: 'Limited cold-chain references'
+    partnerName: 'Healthcare Logistics Solutions',
+    parentGroup: 'HLS Group',
+    hqLocation: 'Atlanta, GA, USA',
+    regionsCovered: 'Southeast, Southwest',
+    keyServicesOffered: 'Full-service Relocation, Equipment Logistics, IT Migration',
+    channelType: 'Specialized Healthcare Mover',
+    facilityTypesCovered: 'Hospitals, ASCs, Imaging Centers',
+    complianceCapability: 'Full - HIPAA, Joint Commission, OSHA',
+    endUseFocus: 'Hospital Systems, Ambulatory Networks',
+    keyContactPerson: 'Michael Torres',
+    designation: 'VP Operations',
+    email: 'mtorres@hlsgroup.com',
+    phone: '+1 (404) 555-0142',
+    linkedIn: 'linkedin.com/in/michaeltorres-hls',
+    website: 'www.hlsgroup.com',
+    competitiveStrengths: 'Deep healthcare compliance, Fast deployment, Regional expertise',
+    gapsWeaknesses: 'Limited West Coast coverage'
   },
   {
-    distributorName: 'Techno Doors Pvt Ltd',
-    parentGroupHoldingCompany: 'Independent',
-    hqCountry: 'India',
-    countriesCovered: 'India',
-    keyOEMBrandsCarried: 'Gandhi Automations, Hormann, Local',
-    channelType: 'Multi-brand Dealer',
-    keyDoorTypesCovered: 'High-Speed, Rolling Shutters, Sectional',
-    automationCapability: 'Semi to Full',
-    endUseFocus: 'Manufacturing, Pharma, Food Processing',
-    keyContactPerson: 'Ramesh Agarwal',
+    partnerName: 'MedMove Partners',
+    parentGroup: 'Independent',
+    hqLocation: 'Boston, MA, USA',
+    regionsCovered: 'Northeast, Midwest',
+    keyServicesOffered: 'Equipment-only Relocation, Imaging Equipment Specialists',
+    channelType: 'Equipment Specialist',
+    facilityTypesCovered: 'Imaging Centers, Hospitals, Specialty Clinics',
+    complianceCapability: 'Full - FDA, Joint Commission, State Regulations',
+    endUseFocus: 'Radiology Networks, Academic Medical Centers',
+    keyContactPerson: 'Sarah Chen',
     designation: 'Managing Director',
-    email: 'ramesh@technodoors.in',
-    phoneWhatsApp: '+91 98234 22222',
-    linkedIn: 'linkedin.com/in/rameshagarwal',
-    website: 'www.technodoors.in',
-    competitiveStrengths: 'Local presence, Competitive pricing, Quick installation',
-    gapsWeaknesses: 'Limited premium segment experience'
+    email: 'schen@medmovepartners.com',
+    phone: '+1 (617) 555-0198',
+    linkedIn: 'linkedin.com/in/sarahchen-medmove',
+    website: 'www.medmovepartners.com',
+    competitiveStrengths: 'Imaging equipment expertise, OEM partnerships, Compliance focus',
+    gapsWeaknesses: 'Limited capacity for large hospital moves'
   },
   {
-    distributorName: 'Cold Chain Solutions India',
-    parentGroupHoldingCompany: 'CCS Group',
-    hqCountry: 'India',
-    countriesCovered: 'India, Bangladesh, Nepal',
-    keyOEMBrandsCarried: 'ASSA ABLOY, Dynaco, Infraca',
-    channelType: 'EPC Contractor',
-    keyDoorTypesCovered: 'Cold Room Doors, High-Speed, Strip Curtains',
-    automationCapability: 'Full Automation',
-    endUseFocus: 'Cold Chain, Pharma, Food & Beverage',
-    keyContactPerson: 'Anjali Sharma',
-    designation: 'Business Head',
-    email: 'anjali@coldchainsolutions.in',
-    phoneWhatsApp: '+91 99887 33333',
-    linkedIn: 'linkedin.com/in/anjalisharma-ccs',
-    website: 'www.coldchainsolutions.in',
-    competitiveStrengths: 'Cold chain expertise, Turnkey solutions, Strong references',
-    gapsWeaknesses: 'Limited manufacturing sector presence'
-  },
-  {
-    distributorName: 'Industrial Access Systems',
-    parentGroupHoldingCompany: 'IAS Holdings',
-    hqCountry: 'India',
-    countriesCovered: 'India, Middle East',
-    keyOEMBrandsCarried: 'Rytec, Efaflex, Gandhi',
-    channelType: 'Authorized Distributor',
-    keyDoorTypesCovered: 'High-Speed, Crash Doors, Sectional',
-    automationCapability: 'Full Automation',
-    endUseFocus: 'Automotive, Manufacturing, Logistics',
-    keyContactPerson: 'Sunil Kapoor',
-    designation: 'Director - Sales',
-    email: 'sunil@iasystems.co.in',
-    phoneWhatsApp: '+91 98102 44444',
-    linkedIn: 'linkedin.com/in/sunilkapoor-ias',
-    website: 'www.iasystems.co.in',
-    competitiveStrengths: 'Technical expertise, OEM trained, Pan-India service',
-    gapsWeaknesses: 'Higher pricing vs local players'
-  },
-  {
-    distributorName: 'BuildTech Doors & Automation',
-    parentGroupHoldingCompany: 'BuildTech Group',
-    hqCountry: 'India',
-    countriesCovered: 'India',
-    keyOEMBrandsCarried: 'Kopron, Local Manufacturers',
-    channelType: 'Retailer / Dealer',
-    keyDoorTypesCovered: 'Sectional, Rolling, Dock Equipment',
-    automationCapability: 'Semi Automation',
-    endUseFocus: 'SME Manufacturing, Warehouses',
-    keyContactPerson: 'Pradeep Jain',
-    designation: 'Proprietor',
-    email: 'pradeep@buildtechdoors.com',
-    phoneWhatsApp: '+91 97654 55555',
-    linkedIn: 'linkedin.com/in/pradeepjain-bt',
-    website: 'www.buildtechdoors.com',
-    competitiveStrengths: 'Value pricing, Quick delivery, Local support',
-    gapsWeaknesses: 'Limited automation expertise, No premium brands'
-  },
-  {
-    distributorName: 'SafeEntry Solutions',
-    parentGroupHoldingCompany: 'Independent',
-    hqCountry: 'India',
-    countriesCovered: 'India',
-    keyOEMBrandsCarried: 'Hormann, ASSA ABLOY',
-    channelType: 'Authorized Dealer',
-    keyDoorTypesCovered: 'High-Speed, Fire Doors, Sectional',
-    automationCapability: 'Full Automation',
-    endUseFocus: 'Pharma, Clean Rooms, Data Centers',
-    keyContactPerson: 'Neha Gupta',
+    partnerName: 'National Healthcare Transitions',
+    parentGroup: 'NHT Holdings',
+    hqLocation: 'Chicago, IL, USA',
+    regionsCovered: 'Midwest, Northeast, West',
+    keyServicesOffered: 'Full-service Relocation, IT & Data Migration, Compliance Consulting',
+    channelType: 'Full-service Provider',
+    facilityTypesCovered: 'Hospitals, MOBs, Rehab Centers',
+    complianceCapability: 'Full - HIPAA, CMS, State Health Dept',
+    endUseFocus: 'Large Hospital Systems, Government Healthcare',
+    keyContactPerson: 'David Park',
     designation: 'CEO',
-    email: 'neha@safeentry.in',
-    phoneWhatsApp: '+91 98765 66666',
-    linkedIn: 'linkedin.com/in/nehagupta-se',
-    website: 'www.safeentry.in',
-    competitiveStrengths: 'Compliance expertise, Premium positioning, Strong references',
-    gapsWeaknesses: 'Limited geographic coverage'
+    email: 'dpark@nhttransitions.com',
+    phone: '+1 (312) 555-0267',
+    linkedIn: 'linkedin.com/in/davidpark-nht',
+    website: 'www.nhttransitions.com',
+    competitiveStrengths: 'National coverage, Government contracts, Turn-key solutions',
+    gapsWeaknesses: 'Higher pricing vs regional players'
+  },
+  {
+    partnerName: 'Pacific Health Movers',
+    parentGroup: 'Independent',
+    hqLocation: 'San Francisco, CA, USA',
+    regionsCovered: 'West, Southwest',
+    keyServicesOffered: 'New Facility Relocation, Renovation Support, Equipment Logistics',
+    channelType: 'Regional Specialist',
+    facilityTypesCovered: 'ASCs, MOBs, Specialty Clinics',
+    complianceCapability: 'Full - California DPH, HIPAA, Seismic Compliance',
+    endUseFocus: 'Ambulatory Networks, Physician Groups, Dental Chains',
+    keyContactPerson: 'Jennifer Wu',
+    designation: 'President',
+    email: 'jwu@pacifichealthmovers.com',
+    phone: '+1 (415) 555-0334',
+    linkedIn: 'linkedin.com/in/jenniferwu-phm',
+    website: 'www.pacifichealthmovers.com',
+    competitiveStrengths: 'California regulatory expertise, Seismic compliance, Fast turnaround',
+    gapsWeaknesses: 'Limited East Coast operations'
+  },
+  {
+    partnerName: 'Southern Medical Logistics',
+    parentGroup: 'SML Corp',
+    hqLocation: 'Houston, TX, USA',
+    regionsCovered: 'Southwest, Southeast',
+    keyServicesOffered: 'Equipment-only Relocation, Climate-Controlled Transport',
+    channelType: 'Specialized Logistics',
+    facilityTypesCovered: 'Imaging Centers, Hospitals, Rehab Centers',
+    complianceCapability: 'Moderate - HIPAA, Basic State Compliance',
+    endUseFocus: 'Regional Hospitals, Imaging Networks',
+    keyContactPerson: 'Robert Martinez',
+    designation: 'Director of Operations',
+    email: 'rmartinez@southernmedlog.com',
+    phone: '+1 (713) 555-0421',
+    linkedIn: 'linkedin.com/in/robertmartinez-sml',
+    website: 'www.southernmedlog.com',
+    competitiveStrengths: 'Competitive pricing, Climate-controlled fleet, Quick deployment',
+    gapsWeaknesses: 'Limited IT migration capability'
+  },
+  {
+    partnerName: 'Compliance First Healthcare Moving',
+    parentGroup: 'Independent',
+    hqLocation: 'Washington, DC, USA',
+    regionsCovered: 'Northeast, Southeast',
+    keyServicesOffered: 'Compliance-led Relocation, HIPAA Consulting, IT Decommissioning',
+    channelType: 'Compliance Specialist',
+    facilityTypesCovered: 'Hospitals, Specialty Clinics, MOBs',
+    complianceCapability: 'Full - HIPAA, HITECH, Joint Commission, CMS',
+    endUseFocus: 'Government Healthcare, Academic Medical Centers',
+    keyContactPerson: 'Amanda Foster',
+    designation: 'Chief Compliance Officer',
+    email: 'afoster@compliancefirsthm.com',
+    phone: '+1 (202) 555-0578',
+    linkedIn: 'linkedin.com/in/amandafoster-cfhm',
+    website: 'www.compliancefirsthm.com',
+    competitiveStrengths: 'Compliance expertise, Government clearances, Data security focus',
+    gapsWeaknesses: 'Premium pricing, Limited equipment handling'
   }
 ]
 
@@ -281,7 +273,7 @@ export function CompetitiveIntelligence({ height }: CompetitiveIntelligenceProps
         <thead>
           <tr>
             <th colSpan={6} className="bg-[#E8C4A0] border border-gray-300 px-3 py-2 text-center text-sm font-semibold text-black">
-              OEM Information
+              Company Information
             </th>
             <th colSpan={4} className="bg-[#87CEEB] border border-gray-300 px-3 py-2 text-center text-sm font-semibold text-black">
               Channel & Support
@@ -291,61 +283,35 @@ export function CompetitiveIntelligence({ height }: CompetitiveIntelligenceProps
             </th>
           </tr>
           <tr className="bg-gray-100">
-            {/* OEM Information */}
-            <th className="bg-[#FFF8DC] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black min-w-[180px]">
-              OEM / Manufacturer Name
-            </th>
-            <th className="bg-[#FFF8DC] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black min-w-[100px]">
-              HQ Country
-            </th>
-            <th className="bg-[#FFF8DC] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black min-w-[180px]">
-              Primary Door Type Focus
-            </th>
-            <th className="bg-[#FFF8DC] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black min-w-[150px]">
-              Automation Focus
-            </th>
-            <th className="bg-[#FFF8DC] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black min-w-[150px]">
-              Material Focus
-            </th>
-            <th className="bg-[#FFF8DC] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black min-w-[180px]">
-              Key End-use Focus
-            </th>
-            {/* Channel & Support */}
-            <th className="bg-[#B0E0E6] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black min-w-[180px]">
-              Go-to-Market Channels
-            </th>
-            <th className="bg-[#B0E0E6] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black min-w-[180px]">
-              Service / Aftermarket Strength
-            </th>
-            <th className="bg-[#B0E0E6] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black min-w-[150px]">
+            <th className="border border-gray-300 px-3 py-2 text-xs font-medium text-black text-left min-w-[140px]">Company Name</th>
+            <th className="border border-gray-300 px-3 py-2 text-xs font-medium text-black text-left min-w-[120px]">HQ Location</th>
+            <th className="border border-gray-300 px-3 py-2 text-xs font-medium text-black text-left min-w-[180px]">Primary Service Focus</th>
+            <th className="border border-gray-300 px-3 py-2 text-xs font-medium text-black text-left min-w-[150px]">Facility Type Focus</th>
+            <th className="border border-gray-300 px-3 py-2 text-xs font-medium text-black text-left min-w-[180px]">Technology Capabilities</th>
+            <th className="border border-gray-300 px-3 py-2 text-xs font-medium text-black text-left min-w-[150px]">Key End-use Focus</th>
+            <th className="border border-gray-300 px-3 py-2 text-xs font-medium text-black text-left min-w-[150px]">Go-to-Market Channels</th>
+            <th className="border border-gray-300 px-3 py-2 text-xs font-medium text-black text-left min-w-[160px]">Service Strength</th>
+            <th className="border border-gray-300 px-3 py-2 text-xs font-medium text-black text-left min-w-[100px]">
               <div>Typical Positioning</div>
-              <div className="font-normal text-[10px] text-gray-600">(Value/Mid/Premium)</div>
+              <div>(Value/Mid/Premium)</div>
             </th>
-            <th className="bg-[#B0E0E6] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black min-w-[200px]">
-              Key Distributor/Integrator Approach
-            </th>
-            {/* CMI Insights */}
-            <th className="bg-[#B0E0E6] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black min-w-[200px]">
-              Key Insights
-            </th>
+            <th className="border border-gray-300 px-3 py-2 text-xs font-medium text-black text-left min-w-[160px]">Key Partner Approach</th>
+            <th className="border border-gray-300 px-3 py-2 text-xs font-medium text-black text-left min-w-[200px]">Key Insights</th>
           </tr>
         </thead>
         <tbody>
           {oemData.map((oem, index) => (
             <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-              {/* OEM Information */}
-              <td className="border border-gray-300 px-3 py-2 text-sm text-black font-medium">{oem.oemManufacturerName}</td>
-              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{oem.hqCountry}</td>
-              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{oem.primaryDoorTypeFocus}</td>
-              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{oem.automationFocus}</td>
-              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{oem.materialFocus}</td>
+              <td className="border border-gray-300 px-3 py-2 text-sm font-medium text-black">{oem.companyName}</td>
+              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{oem.hqLocation}</td>
+              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{oem.primaryServiceFocus}</td>
+              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{oem.facilityTypeFocus}</td>
+              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{oem.technologyCapabilities}</td>
               <td className="border border-gray-300 px-3 py-2 text-sm text-black">{oem.keyEndUseFocus}</td>
-              {/* Channel & Support */}
               <td className="border border-gray-300 px-3 py-2 text-sm text-black">{oem.goToMarketChannels}</td>
-              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{oem.serviceAftermarketStrength}</td>
+              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{oem.serviceStrength}</td>
               <td className="border border-gray-300 px-3 py-2 text-sm text-black">{oem.typicalPositioning}</td>
-              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{oem.keyDistributorIntegratorApproach}</td>
-              {/* CMI Insights */}
+              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{oem.keyPartnerApproach}</td>
               <td className="border border-gray-300 px-3 py-2 text-sm text-black">{oem.keyInsights}</td>
             </tr>
           ))}
@@ -362,7 +328,7 @@ export function CompetitiveIntelligence({ height }: CompetitiveIntelligenceProps
             <th colSpan={9} className="bg-[#E8C4A0] border border-gray-300 px-3 py-2 text-center text-sm font-semibold text-black">
               Partner Profile
             </th>
-            <th colSpan={6} className="bg-[#87CEEB] border border-gray-300 px-3 py-2 text-center text-sm font-semibold text-black">
+            <th colSpan={6} className="bg-[#90EE90] border border-gray-300 px-3 py-2 text-center text-sm font-semibold text-black">
               Contact Details
             </th>
             <th colSpan={2} className="bg-[#87CEEB] border border-gray-300 px-3 py-2 text-center text-sm font-semibold text-black">
@@ -370,92 +336,45 @@ export function CompetitiveIntelligence({ height }: CompetitiveIntelligenceProps
             </th>
           </tr>
           <tr className="bg-gray-100">
-            {/* Partner Profile */}
-            <th className="bg-[#FFF8DC] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black min-w-[180px]">
-              Distributor / Channel Partner Name
-            </th>
-            <th className="bg-[#FFF8DC] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black min-w-[150px]">
-              Parent Group / Holding Company
-            </th>
-            <th className="bg-[#FFF8DC] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black min-w-[100px]">
-              HQ Country
-            </th>
-            <th className="bg-[#FFF8DC] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black min-w-[130px]">
-              Countries Covered
-            </th>
-            <th className="bg-[#FFF8DC] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black min-w-[180px]">
-              Key OEM Brands Carried
-            </th>
-            <th className="bg-[#FFF8DC] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black min-w-[180px]">
-              <div>Channel Type</div>
-              <div className="font-normal text-[10px] text-gray-600">(Retailers/EPC Contractor/Others)</div>
-            </th>
-            <th className="bg-[#FFF8DC] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black min-w-[150px]">
-              Key Door Types Covered
-            </th>
-            <th className="bg-[#FFF8DC] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black min-w-[130px]">
-              Automation Capability
-            </th>
-            <th className="bg-[#FFF8DC] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black min-w-[150px]">
-              End-use Focus
-            </th>
-            {/* Contact Details */}
-            <th className="bg-[#B0E0E6] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black min-w-[130px]">
-              Key Contact Person
-            </th>
-            <th className="bg-[#B0E0E6] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black min-w-[150px]">
-              Designation / Department
-            </th>
-            <th className="bg-[#B0E0E6] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black min-w-[150px]">
-              Email
-            </th>
-            <th className="bg-[#B0E0E6] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black min-w-[130px]">
-              Phone / WhatsApp
-            </th>
-            <th className="bg-[#B0E0E6] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black min-w-[150px]">
-              LinkedIn
-            </th>
-            <th className="bg-[#B0E0E6] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black min-w-[130px]">
-              Website
-            </th>
-            {/* Fit & Opportunity */}
-            <th className="bg-[#B0E0E6] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black min-w-[180px]">
-              Competitive Strengths
-            </th>
-            <th className="bg-[#B0E0E6] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black min-w-[180px]">
-              Gaps / Weaknesses
-            </th>
+            <th className="border border-gray-300 px-3 py-2 text-xs font-medium text-black text-left min-w-[160px]">Partner Name</th>
+            <th className="border border-gray-300 px-3 py-2 text-xs font-medium text-black text-left min-w-[120px]">Parent Group</th>
+            <th className="border border-gray-300 px-3 py-2 text-xs font-medium text-black text-left min-w-[120px]">HQ Location</th>
+            <th className="border border-gray-300 px-3 py-2 text-xs font-medium text-black text-left min-w-[130px]">Regions Covered</th>
+            <th className="border border-gray-300 px-3 py-2 text-xs font-medium text-black text-left min-w-[180px]">Key Services Offered</th>
+            <th className="border border-gray-300 px-3 py-2 text-xs font-medium text-black text-left min-w-[130px]">Channel Type</th>
+            <th className="border border-gray-300 px-3 py-2 text-xs font-medium text-black text-left min-w-[160px]">Facility Types Covered</th>
+            <th className="border border-gray-300 px-3 py-2 text-xs font-medium text-black text-left min-w-[150px]">Compliance Capability</th>
+            <th className="border border-gray-300 px-3 py-2 text-xs font-medium text-black text-left min-w-[150px]">End-use Focus</th>
+            <th className="border border-gray-300 px-3 py-2 text-xs font-medium text-black text-left min-w-[120px]">Key Contact</th>
+            <th className="border border-gray-300 px-3 py-2 text-xs font-medium text-black text-left min-w-[120px]">Designation</th>
+            <th className="border border-gray-300 px-3 py-2 text-xs font-medium text-black text-left min-w-[180px]">Email</th>
+            <th className="border border-gray-300 px-3 py-2 text-xs font-medium text-black text-left min-w-[120px]">Phone</th>
+            <th className="border border-gray-300 px-3 py-2 text-xs font-medium text-black text-left min-w-[150px]">LinkedIn</th>
+            <th className="border border-gray-300 px-3 py-2 text-xs font-medium text-black text-left min-w-[150px]">Website</th>
+            <th className="border border-gray-300 px-3 py-2 text-xs font-medium text-black text-left min-w-[200px]">Competitive Strengths</th>
+            <th className="border border-gray-300 px-3 py-2 text-xs font-medium text-black text-left min-w-[180px]">Gaps / Weaknesses</th>
           </tr>
         </thead>
         <tbody>
-          {distributorData.map((distributor, index) => (
+          {distributorData.map((dist, index) => (
             <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-              {/* Partner Profile */}
-              <td className="border border-gray-300 px-3 py-2 text-sm text-black font-medium">{distributor.distributorName}</td>
-              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{distributor.parentGroupHoldingCompany}</td>
-              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{distributor.hqCountry}</td>
-              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{distributor.countriesCovered}</td>
-              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{distributor.keyOEMBrandsCarried}</td>
-              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{distributor.channelType}</td>
-              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{distributor.keyDoorTypesCovered}</td>
-              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{distributor.automationCapability}</td>
-              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{distributor.endUseFocus}</td>
-              {/* Contact Details */}
-              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{distributor.keyContactPerson}</td>
-              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{distributor.designation}</td>
-              <td className="border border-gray-300 px-3 py-2 text-sm text-blue-600 hover:underline">
-                <a href={`mailto:${distributor.email}`}>{distributor.email}</a>
-              </td>
-              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{distributor.phoneWhatsApp}</td>
-              <td className="border border-gray-300 px-3 py-2 text-sm text-blue-600 hover:underline">
-                <a href={`https://${distributor.linkedIn}`} target="_blank" rel="noopener noreferrer">{distributor.linkedIn}</a>
-              </td>
-              <td className="border border-gray-300 px-3 py-2 text-sm text-blue-600 hover:underline">
-                <a href={`https://${distributor.website}`} target="_blank" rel="noopener noreferrer">{distributor.website}</a>
-              </td>
-              {/* Fit & Opportunity */}
-              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{distributor.competitiveStrengths}</td>
-              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{distributor.gapsWeaknesses}</td>
+              <td className="border border-gray-300 px-3 py-2 text-sm font-medium text-black">{dist.partnerName}</td>
+              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{dist.parentGroup}</td>
+              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{dist.hqLocation}</td>
+              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{dist.regionsCovered}</td>
+              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{dist.keyServicesOffered}</td>
+              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{dist.channelType}</td>
+              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{dist.facilityTypesCovered}</td>
+              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{dist.complianceCapability}</td>
+              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{dist.endUseFocus}</td>
+              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{dist.keyContactPerson}</td>
+              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{dist.designation}</td>
+              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{dist.email}</td>
+              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{dist.phone}</td>
+              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{dist.linkedIn}</td>
+              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{dist.website}</td>
+              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{dist.competitiveStrengths}</td>
+              <td className="border border-gray-300 px-3 py-2 text-sm text-black">{dist.gapsWeaknesses}</td>
             </tr>
           ))}
         </tbody>
@@ -464,39 +383,31 @@ export function CompetitiveIntelligence({ height }: CompetitiveIntelligenceProps
   )
 
   return (
-    <div className="w-full">
-      <h2 className="text-xl font-bold text-black mb-4">
-        {activeTable === 'oem' ? 'OEM Intelligence' : 'Distributor Intelligence'}
-      </h2>
-
-      {/* Toggle Buttons */}
+    <div style={{ minHeight: height || 600 }}>
+      <h2 className="text-xl font-bold text-black mb-4">Competitive Intelligence</h2>
       <div className="flex gap-2 mb-6">
         <button
           onClick={() => setActiveTable('oem')}
-          className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
             activeTable === 'oem'
-              ? 'bg-[#4A90A4] text-white'
-              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              ? 'bg-blue-600 text-white'
+              : 'bg-gray-100 text-black hover:bg-gray-200'
           }`}
         >
-          OEM Intelligence
+          Company Intelligence
         </button>
         <button
           onClick={() => setActiveTable('distributor')}
-          className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
             activeTable === 'distributor'
-              ? 'bg-[#4A90A4] text-white'
-              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              ? 'bg-blue-600 text-white'
+              : 'bg-gray-100 text-black hover:bg-gray-200'
           }`}
         >
-          Distributor Intelligence
+          Partner Intelligence
         </button>
       </div>
-
-      {/* Render Active Table */}
       {activeTable === 'oem' ? renderOEMTable() : renderDistributorTable()}
     </div>
   )
 }
-
-export default CompetitiveIntelligence

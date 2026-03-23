@@ -379,17 +379,20 @@ export function IntelligenceDataInput({
   }
 
   const regions = [
-    'North America',
-    'Latin America',
-    'Europe',
-    'Asia Pacific',
-    'Middle East & Africa'
+    'Northeast',
+    'Southeast',
+    'Midwest',
+    'West',
+    'Southwest'
   ]
 
   const endUserSegments = [
-    'Residential',
-    'Commercial and Industrial',
-    'Utility-scale'
+    'Hospitals',
+    'ASCs',
+    'MOBs',
+    'Imaging Centers',
+    'Specialty Clinics',
+    'Rehab Centers'
   ]
 
   const distributorSegments = [
