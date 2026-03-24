@@ -200,18 +200,31 @@ export function getTopCountriesByCAGR(
  * @returns Partial FilterState with dynamic values
  */
 export function createTopMarketFilters(data: ComparisonData | null): Partial<FilterState> {
-  const topRegions = getTopRegionsByMarketValue(data, 2023, 3)
+  // Get available year range from data records
+  const records = data?.data?.value?.geography_segment_matrix || []
+  const allYears = records.length > 0 ? Object.keys(records[0].time_series).map(Number).sort((a, b) => a - b) : [2025, 2033]
+  const startYear = allYears[0]
+  const endYear = allYears[allYears.length - 1]
+
+  let topRegions = getTopRegionsByMarketValue(data, startYear, 3)
+
+  // If no regions found, use all available geographies
+  if (topRegions.length === 0) {
+    const allGeos = data?.dimensions?.geographies?.global || []
+    topRegions = allGeos.slice(0, 3)
+  }
+
   const firstSegmentType = getFirstSegmentType(data)
   const firstLevelSegments = firstSegmentType
     ? getFirstLevelSegments(data, firstSegmentType)
     : []
 
   return {
-    viewMode: 'geography-mode', // Geography on X-axis, segments as series
+    viewMode: 'segment-mode', // Segment on X-axis for single-geography markets
     geographies: topRegions,
     segments: firstLevelSegments,
-    segmentType: firstSegmentType || 'By Technology',
-    yearRange: [2023, 2027],
+    segmentType: firstSegmentType || 'By Facility Type',
+    yearRange: [startYear, endYear],
     dataType: 'value'
   }
 }
@@ -223,23 +236,36 @@ export function createTopMarketFilters(data: ComparisonData | null): Partial<Fil
 export function createGrowthLeadersFilters(data: ComparisonData | null): Partial<FilterState> {
   if (!data) return {
     viewMode: 'geography-mode',
-    yearRange: [2025, 2031],
+    yearRange: [2025, 2033],
     dataType: 'value'
   }
 
+  // Get available year range from data records
+  const records = data.data?.value?.geography_segment_matrix || []
+  const allYears = records.length > 0 ? Object.keys(records[0].time_series).map(Number).sort((a, b) => a - b) : [2025, 2033]
+  const startYear = allYears[0]
+  const endYear = allYears[allYears.length - 1]
+
   // Get top 2 regions with highest CAGR
-  const topRegions = getTopRegionsByCAGR(data, 2)
+  let topRegions = getTopRegionsByCAGR(data, 2)
+
+  // If no regions found or only one geography, use all available geographies
+  if (topRegions.length === 0) {
+    const allGeos = data.dimensions?.geographies?.global || []
+    topRegions = allGeos.slice(0, 2)
+  }
+
   const firstSegmentType = getFirstSegmentType(data)
   const firstLevelSegments = firstSegmentType
     ? getFirstLevelSegments(data, firstSegmentType)
     : []
 
   return {
-    viewMode: 'geography-mode', // Geography on X-axis, segments as series
+    viewMode: 'segment-mode', // Segment on X-axis for single-geography markets
     geographies: topRegions,
     segments: firstLevelSegments,
-    segmentType: firstSegmentType || 'By Technology',
-    yearRange: [2025, 2031],
+    segmentType: firstSegmentType || 'By Facility Type',
+    yearRange: [startYear, endYear],
     dataType: 'value'
   }
 }
@@ -251,23 +277,36 @@ export function createGrowthLeadersFilters(data: ComparisonData | null): Partial
 export function createEmergingMarketsFilters(data: ComparisonData | null): Partial<FilterState> {
   if (!data) return {
     viewMode: 'geography-mode',
-    yearRange: [2025, 2031],
+    yearRange: [2025, 2033],
     dataType: 'value'
   }
 
+  // Get available year range from data records
+  const records = data.data?.value?.geography_segment_matrix || []
+  const allYears = records.length > 0 ? Object.keys(records[0].time_series).map(Number).sort((a, b) => a - b) : [2025, 2033]
+  const startYear = allYears[0]
+  const endYear = allYears[allYears.length - 1]
+
   // Get top 5 countries with highest CAGR
-  const topCountries = getTopCountriesByCAGR(data, 5)
+  let topCountries = getTopCountriesByCAGR(data, 5)
+
+  // If no countries found, use all available geographies
+  if (topCountries.length === 0) {
+    const allGeos = data.dimensions?.geographies?.global || []
+    topCountries = allGeos.slice(0, 5)
+  }
+
   const firstSegmentType = getFirstSegmentType(data)
   const firstLevelSegments = firstSegmentType
     ? getFirstLevelSegments(data, firstSegmentType)
     : []
 
   return {
-    viewMode: 'geography-mode', // Geography on X-axis, segments as series
+    viewMode: 'segment-mode', // Segment on X-axis for single-geography markets
     geographies: topCountries,
     segments: firstLevelSegments,
-    segmentType: firstSegmentType || 'By Technology',
-    yearRange: [2025, 2031],
+    segmentType: firstSegmentType || 'By Facility Type',
+    yearRange: [startYear, endYear],
     dataType: 'value'
   }
 }

@@ -139,7 +139,7 @@ async function collectPathsAsync(
     
     // Yield control periodically to avoid blocking
     if (count % chunkSize === 0) {
-      await new Promise(resolve => setImmediate(resolve))
+      await Promise.resolve()
     }
   }
   
@@ -186,7 +186,7 @@ async function extractYearsAsync(data: RawJsonData): Promise<number[]> {
       
       // Yield control every 100 keys
       if (i % 100 === 0) {
-        await new Promise(resolve => setImmediate(resolve))
+        await Promise.resolve()
       }
     }
   }
@@ -546,7 +546,7 @@ async function processSegmentTypeAsync(
             }
             count++
             if (count % 1000 === 0) {
-              await new Promise(resolve => setImmediate(resolve))
+              await Promise.resolve()
             }
           }
         }
@@ -574,7 +574,7 @@ async function processSegmentTypeAsync(
             }
             count++
             if (count % 1000 === 0) {
-              await new Promise(resolve => setImmediate(resolve))
+              await Promise.resolve()
             }
           }
         }
@@ -582,7 +582,7 @@ async function processSegmentTypeAsync(
       
       // Yield control every 5 geographies
       if ((i + 1) % 5 === 0) {
-        await new Promise(resolve => setImmediate(resolve))
+        await Promise.resolve()
       }
     }
   } else {
@@ -605,7 +605,7 @@ async function processSegmentTypeAsync(
           structurePaths.push(pathObj)
           count++
           if (count % 1000 === 0) {
-            await new Promise(resolve => setImmediate(resolve))
+            await Promise.resolve()
           }
         }
         
@@ -655,7 +655,7 @@ async function processSegmentTypeAsync(
       
       // Yield control every 5 geographies
       if ((i + 1) % 5 === 0) {
-        await new Promise(resolve => setImmediate(resolve))
+        await Promise.resolve()
       }
     }
   }
@@ -691,7 +691,7 @@ async function processSegmentTypeAsync(
           structurePaths.push(pathObj)
           count++
           if (count % 1000 === 0) {
-            await new Promise(resolve => setImmediate(resolve))
+            await Promise.resolve()
           }
         }
 
@@ -1152,8 +1152,8 @@ async function processSegmentTypeAsync(
           cagr = data.CAGR
         }
       } else {
-        // Calculate CAGR from base year (2023) to forecast year
-        const cagrStartYear = allYears[0] + 4 // Base year = 2023 for 2019-2031 data
+        // Calculate CAGR from first year to last year
+        const cagrStartYear = allYears[0]
         const cagrEndYear = allYears[allYears.length - 1]
         const startVal = timeSeries[cagrStartYear] || 0
         const endVal = timeSeries[cagrEndYear] || 0
@@ -1180,7 +1180,7 @@ async function processSegmentTypeAsync(
     }
     
     // Yield control between batches
-    await new Promise(resolve => setImmediate(resolve))
+    await Promise.resolve()
   }
   
   return {
@@ -1362,7 +1362,7 @@ export async function processJsonDataAsync(
       valueRecords.push(...records)
 
       // Yield control between segment types
-      await new Promise(resolve => setImmediate(resolve))
+      await Promise.resolve()
     }
 
     // "By Region" is processed as a regular segment type above, no separate geography processing needed
@@ -1383,7 +1383,7 @@ export async function processJsonDataAsync(
           segmentTypeIndex
         )
         valueRecords.push(...geoRecords)
-        await new Promise(resolve => setImmediate(resolve))
+        await Promise.resolve()
       }
     }
     
@@ -1522,49 +1522,34 @@ export async function loadAndProcessJsonFiles(
     
     console.log(`Value JSON size: ${(valueContent.length / 1024 / 1024).toFixed(2)} MB`)
     
-    // Parse JSON asynchronously (using setImmediate to yield)
+    // Parse JSON synchronously (small files don't need async parsing)
     let valueData: RawJsonData
-    await new Promise<void>(resolve => {
-      setImmediate(() => {
-        try {
-          valueData = JSON.parse(valueContent)
-          console.log('Value JSON parsed successfully')
-          resolve()
-        } catch (error) {
-          throw new Error(`Failed to parse value JSON: ${error instanceof Error ? error.message : String(error)}`)
-        }
-      })
-    })
-    
+    try {
+      valueData = JSON.parse(valueContent)
+      console.log('Value JSON parsed successfully')
+    } catch (error) {
+      throw new Error(`Failed to parse value JSON: ${error instanceof Error ? error.message : String(error)}`)
+    }
+
     let volumeData: RawJsonData | null = null
     if (volumeContent) {
-      await new Promise<void>(resolve => {
-        setImmediate(() => {
-          try {
-            volumeData = JSON.parse(volumeContent)
-            console.log('Volume JSON parsed successfully')
-          } catch (error) {
-            console.warn(`Failed to parse volume JSON: ${error instanceof Error ? error.message : String(error)}`)
-          }
-          resolve()
-        })
-      })
+      try {
+        volumeData = JSON.parse(volumeContent)
+        console.log('Volume JSON parsed successfully')
+      } catch (error) {
+        console.warn(`Failed to parse volume JSON: ${error instanceof Error ? error.message : String(error)}`)
+      }
     }
-    
-    let segmentationData: RawJsonData = valueData!
+
+    let segmentationData: RawJsonData = valueData
     if (segmentationContent) {
-      await new Promise<void>(resolve => {
-        setImmediate(() => {
-          try {
-            segmentationData = JSON.parse(segmentationContent)
-            console.log('Segmentation JSON parsed successfully')
-          } catch (error) {
-            console.warn(`Failed to parse segmentation JSON: ${error instanceof Error ? error.message : String(error)}. Using value data.`)
-            segmentationData = valueData!
-          }
-          resolve()
-        })
-      })
+      try {
+        segmentationData = JSON.parse(segmentationContent)
+        console.log('Segmentation JSON parsed successfully')
+      } catch (error) {
+        console.warn(`Failed to parse segmentation JSON: ${error instanceof Error ? error.message : String(error)}. Using value data.`)
+        segmentationData = valueData
+      }
     } else {
       console.log('Using value data structure for segmentation')
     }

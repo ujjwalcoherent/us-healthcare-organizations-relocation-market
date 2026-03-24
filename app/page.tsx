@@ -11,7 +11,6 @@ import { MatrixHeatmap } from '@/components/charts/MatrixHeatmap'
 import { ComparisonTable } from '@/components/charts/ComparisonTable'
 import { WaterfallChart } from '@/components/charts/WaterfallChart'
 import { D3BubbleChartIndependent } from '@/components/charts/D3BubbleChartIndependent'
-import { CompetitiveIntelligence } from '@/components/charts/CompetitiveIntelligence'
 import CustomerIntelligenceHeatmap from '@/components/charts/CustomerIntelligenceHeatmap'
 import DistributorsIntelligence from '@/components/charts/DistributorsIntelligenceTable'
 import CustomerIntelligenceDatabase from '@/components/charts/CustomerIntelligenceDatabase'
@@ -31,7 +30,7 @@ export default function DashboardPage() {
   const { setData, setLoading, setError, data, isLoading, error, filters, selectedChartGroup, dashboardName } = useDashboardStore()
   const [mounted, setMounted] = useState(false)
   const [hasCheckedStore, setHasCheckedStore] = useState(false)
-  const [activeTab, setActiveTab] = useState<'bar' | 'line' | 'heatmap' | 'table' | 'waterfall' | 'bubble' | 'competitive-intelligence' | 'customer-intelligence' | 'customer-intelligence-database'>('bar')
+  const [activeTab, setActiveTab] = useState<'bar' | 'line' | 'heatmap' | 'table' | 'waterfall' | 'bubble' | 'customer-intelligence' | 'customer-intelligence-database'>('bar')
   const [showInsights, setShowInsights] = useState(false)
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [viewMode, setViewMode] = useState<'tabs' | 'vertical'>('tabs')
@@ -53,7 +52,6 @@ export default function DashboardPage() {
     'comparison-table': 'table',
     'waterfall': 'waterfall',
     'bubble': 'bubble',
-    'competitive-intelligence': 'competitive-intelligence',
     'customer-intelligence': 'customer-intelligence',
     'customer-intelligence-database': 'customer-intelligence-database'
   }
@@ -374,18 +372,6 @@ export default function DashboardPage() {
                             🫧 Bubble Chart
                           </button>
                         )}
-                        {isChartVisible('competitive-intelligence') && (
-                          <button
-                            onClick={() => setActiveTab('competitive-intelligence')}
-                            className={`px-6 py-3 text-sm font-medium border-b-2 transition-colors ${
-                              activeTab === 'competitive-intelligence'
-                                ? 'border-blue-500 text-blue-600'
-                                : 'border-transparent text-black hover:text-black hover:border-gray-300'
-                            }`}
-                          >
-                            🏢 Competitive Intelligence
-                          </button>
-                        )}
                         {isChartVisible('customer-intelligence') && (
                           <button
                             onClick={() => setActiveTab('customer-intelligence')}
@@ -492,14 +478,6 @@ export default function DashboardPage() {
                       </div>
                     )}
                     
-                    {activeTab === 'competitive-intelligence' && (
-                      <div id="competitive-intelligence-chart">
-                        <CompetitiveIntelligence 
-                          height={600}
-                        />
-                      </div>
-                    )}
-                    
                     {activeTab === 'customer-intelligence' && (
                       <div id="customer-intelligence-chart" className="space-y-8">
                         <div>
@@ -584,14 +562,6 @@ export default function DashboardPage() {
                         <D3BubbleChartIndependent 
                           title="Coherent Opportunity Matrix" 
                           height={450}
-                        />
-                      </div>
-                    )}
-                    
-                    {isChartVisible('competitive-intelligence') && (
-                      <div className="border-b pb-8">
-                        <CompetitiveIntelligence 
-                          height={600}
                         />
                       </div>
                     )}
