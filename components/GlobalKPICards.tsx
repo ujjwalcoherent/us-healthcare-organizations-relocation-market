@@ -113,10 +113,15 @@ export function GlobalKPICards() {
       marketSizeEnd += record.time_series[endYear] || 0
     })
 
-    // Calculate CAGR from start to end year
-    const years = endYear - startYear
-    const cagr = marketSizeStart > 0 && years > 0
-      ? (Math.pow(marketSizeEnd / marketSizeStart, 1 / years) - 1) * 100
+    // Calculate CAGR from forecast start (base year + 1) to end year
+    const cagrStartYear = startYear + 1 // 2026 for base year 2025
+    let marketSizeCagrStart = 0
+    globalRecords.forEach(record => {
+      marketSizeCagrStart += record.time_series[cagrStartYear] || 0
+    })
+    const cagrYears = endYear - cagrStartYear
+    const cagr = marketSizeCagrStart > 0 && cagrYears > 0
+      ? (Math.pow(marketSizeEnd / marketSizeCagrStart, 1 / cagrYears) - 1) * 100
       : 0
 
     // Calculate absolute growth
@@ -163,6 +168,7 @@ export function GlobalKPICards() {
       marketSizeEnd: marketSizeEndDisplay,
       startYear,
       endYear,
+      cagrStartYear,
       cagr,
       absoluteGrowth: absoluteGrowthDisplay,
       growthPercentage,
@@ -246,7 +252,7 @@ export function GlobalKPICards() {
             </div>
             <div>
               <p className="text-[10px] text-black uppercase tracking-wider font-semibold">
-                CAGR ({kpiData.startYear}-{kpiData.endYear})
+                CAGR ({kpiData.cagrStartYear}-{kpiData.endYear})
               </p>
               <p className="text-base font-bold text-black leading-tight">
                 {kpiData.cagr.toFixed(2)}%

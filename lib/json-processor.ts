@@ -139,7 +139,7 @@ async function collectPathsAsync(
     
     // Yield control periodically to avoid blocking
     if (count % chunkSize === 0) {
-      await Promise.resolve()
+      // yield removed - sync processing
     }
   }
   
@@ -186,7 +186,7 @@ async function extractYearsAsync(data: RawJsonData): Promise<number[]> {
       
       // Yield control every 100 keys
       if (i % 100 === 0) {
-        await Promise.resolve()
+        // yield removed - sync processing
       }
     }
   }
@@ -546,7 +546,7 @@ async function processSegmentTypeAsync(
             }
             count++
             if (count % 1000 === 0) {
-              await Promise.resolve()
+              // yield removed - sync processing
             }
           }
         }
@@ -574,7 +574,7 @@ async function processSegmentTypeAsync(
             }
             count++
             if (count % 1000 === 0) {
-              await Promise.resolve()
+              // yield removed - sync processing
             }
           }
         }
@@ -582,7 +582,7 @@ async function processSegmentTypeAsync(
       
       // Yield control every 5 geographies
       if ((i + 1) % 5 === 0) {
-        await Promise.resolve()
+        // yield removed - sync processing
       }
     }
   } else {
@@ -605,7 +605,7 @@ async function processSegmentTypeAsync(
           structurePaths.push(pathObj)
           count++
           if (count % 1000 === 0) {
-            await Promise.resolve()
+            // yield removed - sync processing
           }
         }
         
@@ -655,7 +655,7 @@ async function processSegmentTypeAsync(
       
       // Yield control every 5 geographies
       if ((i + 1) % 5 === 0) {
-        await Promise.resolve()
+        // yield removed - sync processing
       }
     }
   }
@@ -691,7 +691,7 @@ async function processSegmentTypeAsync(
           structurePaths.push(pathObj)
           count++
           if (count % 1000 === 0) {
-            await Promise.resolve()
+            // yield removed - sync processing
           }
         }
 
@@ -1152,8 +1152,8 @@ async function processSegmentTypeAsync(
           cagr = data.CAGR
         }
       } else {
-        // Calculate CAGR from first year to last year
-        const cagrStartYear = allYears[0]
+        // Calculate CAGR from forecast start (base year + 1) to last year
+        const cagrStartYear = allYears.length > 1 ? allYears[1] : allYears[0]
         const cagrEndYear = allYears[allYears.length - 1]
         const startVal = timeSeries[cagrStartYear] || 0
         const endVal = timeSeries[cagrEndYear] || 0
@@ -1179,8 +1179,7 @@ async function processSegmentTypeAsync(
       })
     }
     
-    // Yield control between batches
-    await Promise.resolve()
+    // yield removed - sync processing
   }
   
   return {
@@ -1362,7 +1361,7 @@ export async function processJsonDataAsync(
       valueRecords.push(...records)
 
       // Yield control between segment types
-      await Promise.resolve()
+      // yield removed - sync processing
     }
 
     // "By Region" is processed as a regular segment type above, no separate geography processing needed
@@ -1383,7 +1382,7 @@ export async function processJsonDataAsync(
           segmentTypeIndex
         )
         valueRecords.push(...geoRecords)
-        await Promise.resolve()
+        // yield removed - sync processing
       }
     }
     
